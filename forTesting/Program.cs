@@ -3,16 +3,32 @@ using System.Net.NetworkInformation;
 using System.Threading;
 using System.Net;
 using System.Net.Mail;
+using System.IO;
 namespace forTesting
 {
     class Program
     {
-        static string PingTrace(string toHost, int ttl)
+        static string PingTrace(string toHost, int ttl) //это не покажет внешний адрес роутера((( Нужен внешнний сервер. Либо использовать Dns.GetHostEntry(Dns.GetHostName ())
         {
             byte[] arr = { 0x7B, 0x22, 0x62 };
             var pinger = new Ping();
             var pingReply = pinger.Send(toHost, 1000, arr, new PingOptions(ttl, true));
             return pingReply.Address.ToString();
+        }
+
+        static string GetIP()
+        {
+            var req = WebRequest.Create("http://checkip.dyndns.org");
+            string reqstring;
+
+            using (var reader = new StreamReader(req.GetResponse().GetResponseStream()))
+            {
+                reqstring = reader.ReadToEnd();
+            }
+            string[] a = reqstring.Split(':');
+            string a2 = a[1].Substring(1);
+            a = a2.Split('<');
+            return a[0].ToString();
         }
 
         static void SendMessage(string mailUserName, string mailPassword, string body)
@@ -34,27 +50,30 @@ namespace forTesting
             };
         }
 
-        static void Main(string[] args)//args: mailUserName, mailPassword, hostToPing, ttl
+        static void Main(string[] args)//args: mailUserName, mailPassword
         {
-            Console.WriteLine("The arguments are: mailUserName, mailPassword, hostToPing, ttl");
-            string mailUserName = args[0],
-                mailPassword = args[1],
-                hostToPing = args[2],
-                currentIP = "",
-                mbNewIP;
-            int ttl = Convert.ToInt32(args[3]);
-
-            while (true)
+            if (args.Length != 2)
             {
-                mbNewIP = PingTrace(hostToPing, ttl);
-                if (currentIP != mbNewIP)
+                Console.WriteLine("The arguments are: mailUserName, mailPassword");
+            }
+            else
+            {
+                string mailUserName = args[0],
+                    mailPassword = args[1],
+                    currentIP = "",
+                    mbNewIP;
+                while (true)
                 {
-                    currentIP = mbNewIP;
-                    Console.WriteLine($"Your IP is {currentIP}, {DateTime.Now}");
-                    SendMessage(mailUserName, mailPassword, currentIP);
+                    mbNewIP = GetIP();
+                    if (currentIP != mbNewIP)
+                    {
+                        currentIP = mbNewIP;
+                        Console.WriteLine($"Your IP is {currentIP}, {DateTime.Now}");
+                        SendMessage(mailUserName, mailPassword, currentIP);
 
+                    }
+                    Thread.Sleep(60000);
                 }
-                Thread.Sleep(60000);
             }
             
         }
