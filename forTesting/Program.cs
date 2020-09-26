@@ -28,18 +28,15 @@ namespace forTesting
 
             using (var client = new SmtpClient("smtp.mail.ru", 25))
             {
-
                 client.Credentials = new NetworkCredential(mailUserName, mailPassword);
                 client.EnableSsl = true;
-
                 client.Send(message);
-
-
             };
         }
 
         static void Main(string[] args)//args: mailUserName, mailPassword, hostToPing, ttl
         {
+            Console.WriteLine("The arguments are: mailUserName, mailPassword, hostToPing, ttl");
             string mailUserName = args[0],
                 mailPassword = args[1],
                 hostToPing = args[2],
