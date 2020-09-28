@@ -27,46 +27,11 @@ namespace Mailer
             InitializeComponent();
         }
 
-        private void SendMethod() { 
-            var mailSender = new MailAddress(tbSenderName.Text);
-            var mailRecipient = new MailAddress(tbRecipientName.Text);
-            bool isSendError = false;
-            using var message = new MailMessage(mailSender, mailRecipient)
-            {
-                Subject = tbSubject.Text,
-                Body = (tbMessage.Text.Length == 0) ? $"Письмо отправлено {DateTime.Now}" : $"{tbMessage.Text}\r\n\nПисьмо отправлено {DateTime.Now}"
-            };
 
-            using (var client = new SmtpClient("smtp.mail.ru", 25))
-            {
-                string login = mailSender.Address.ToString();
-
-                client.Credentials = new NetworkCredential(login, passwordBox.SecurePassword );
-                client.EnableSsl = (bool)chbUseSSL.IsChecked;
-
-                try
-                {
-                    client.Send(message);
-
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("oops, something wrong");
-                    isSendError = true;
-                }
-                finally
-                {
-                    if (!isSendError)
-                        MessageBox.Show("sended");
-                }
-
-            };
-
-        }
 
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            SendMethod();
+           // SendMethod();
         }
 
 

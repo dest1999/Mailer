@@ -13,8 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="3.8.2" />
     <PackageReference Include="FontAwesome5" Version="2.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mailer.lib\Mailer.lib.csproj" />
   </ItemGroup>
 
   <ItemGroup>

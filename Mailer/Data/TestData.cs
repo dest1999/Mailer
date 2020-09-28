@@ -1,4 +1,5 @@
-﻿using Mailer.Models;
+﻿using Mailer.lib.Service;
+using Mailer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace Mailer.Data
         {
             Address = $"{i}srvAdr",
             Login = $"{i} login",
-            Password = $"pass {i}",
+            Password = TextEncoder.Encode($"pass {i}"),
             UseSSL = i % 2 == 1
             
         }).ToList();
