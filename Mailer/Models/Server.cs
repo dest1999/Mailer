@@ -7,7 +7,7 @@ namespace Mailer.Models
     class Server
     {
         public string Address { get; set; }
-        private int port;
+        private int port = 25;
         public int Port
         {
             get => port;
@@ -19,9 +19,9 @@ namespace Mailer.Models
             }
         }
 
-        public string UseSSL { get; set; }
+        public bool UseSSL { get; set; }
         public string Login { get; set; }
-        public string Pssword { get; set; }
+        public string Password { get; set; }
         public string Description { get; set; }
     }
 }
