@@ -39,7 +39,7 @@
                                 <ComboBoxItem Content="server2"/>
                                 <ComboBoxItem Content="server3"/>
                             </ComboBox>
-                            <Button><!--картинки почему-то не добавляются-->
+                            <Button>
                                 <Image Source="/Media/add.jpg" Height="10" />
                             </Button>
                             <Button>
@@ -98,12 +98,12 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" MinWidth="200"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <GroupBox Grid.Column="0" Header="Управление">
                         <StackPanel>
                             <Label Content="Календарь" HorizontalAlignment="Center"/>
-                            <Calendar></Calendar>
+                            <Calendar/>
                             <StackPanel Margin="5">
                                 <StackPanel.Resources>
                                     <Style TargetType="Button">
@@ -243,8 +243,8 @@
                     
                     
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -266,7 +266,7 @@
 
 
         </TabControl>
-        <Canvas Visibility="Hidden" >
+        <Canvas Visibility="Collapsed" >
             <!-- временно скрыли старые элементы -->
             <Grid Canvas.Left="10" Canvas.Top="10" >
 
