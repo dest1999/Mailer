@@ -15,11 +15,11 @@ namespace Mailer.lib
         public string Password { get; set; }
         public bool SSL { get; set; }
 
-        private void SendMethod(string SenderAdr, string RecipientAdr, string Subj, string Body)
+        public void SendMethod(string SenderAdr, string RecipientAdr, string Subj, string Body)
         {
             var mailSender = new MailAddress(SenderAdr);
             var mailRecipient = new MailAddress(RecipientAdr);
-            bool isSendError = false;
+            
             using var message = new MailMessage(mailSender, mailRecipient)
             {
                 Subject = Subj,
@@ -42,7 +42,7 @@ namespace Mailer.lib
                 {
                     Trace.TraceError(e.ToString());
                     throw;
-                    isSendError = true;
+                    
                 }
                 //finally
                 //{
