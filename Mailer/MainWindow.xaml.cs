@@ -34,7 +34,7 @@ namespace Mailer
             using var message = new MailMessage(mailSender, mailRecipient)
             {
                 Subject = tbSubject.Text,
-                Body = (tbMessage.Text == "") ? $"Письмо отправлено {DateTime.Now}" : $"{tbMessage.Text}\r\n\nПисьмо отправлено {DateTime.Now}"
+                Body = (tbMessage.Text.Length == 0) ? $"Письмо отправлено {DateTime.Now}" : $"{tbMessage.Text}\r\n\nПисьмо отправлено {DateTime.Now}"
             };
 
             using (var client = new SmtpClient("smtp.mail.ru", 25))

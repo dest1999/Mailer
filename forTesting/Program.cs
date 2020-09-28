@@ -16,22 +16,34 @@ namespace forTesting
             return pingReply.Address.ToString();
         }
 
-        static string GetIP()
+        static string GetIP(out bool IPaddressOK)
         {
-            var req = WebRequest.Create("http://checkip.dyndns.org");
-            string reqstring;
-
-            using (var reader = new StreamReader(req.GetResponse().GetResponseStream()))
+            try
             {
-                reqstring = reader.ReadToEnd();
+                var req = WebRequest.Create("http://checkip.dyndns.org");
+                string reqstring;
+
+                using (var reader = new StreamReader(req.GetResponse().GetResponseStream()))
+                {
+                    reqstring = reader.ReadToEnd();
+                }
+                string[] a = reqstring.Split(':');
+                string a2 = a[1].Substring(1);
+                a = a2.Split('<');
+                IPaddressOK = true;
+                return a[0].ToString();
+
             }
-            string[] a = reqstring.Split(':');
-            string a2 = a[1].Substring(1);
-            a = a2.Split('<');
-            return a[0].ToString();
+            catch (Exception)
+            {
+                IPaddressOK = false;
+                return "";
+            }
+
+
         }
 
-        static void SendMessage(string mailUserName, string mailPassword, string body)
+        static void SendMessage(string mailUserName, string mailPassword, string body, out bool sendingOK)
         {
             var sender = new MailAddress(mailUserName);
             var recipient = new MailAddress(mailUserName);
@@ -46,7 +58,17 @@ namespace forTesting
             {
                 client.Credentials = new NetworkCredential(mailUserName, mailPassword);
                 client.EnableSsl = true;
-                client.Send(message);
+
+                try
+                {
+                    client.Send(message);
+                    sendingOK = true;
+                }
+                catch (Exception)
+                {
+                    sendingOK = false;
+                }
+
             };
         }
 
@@ -58,19 +80,25 @@ namespace forTesting
             }
             else
             {
+                Console.Clear();
                 string mailUserName = args[0],
                     mailPassword = args[1],
                     currentIP = "",
                     mbNewIP;
                 while (true)
                 {
-                    mbNewIP = GetIP();
-                    if (currentIP != mbNewIP)
+                    mbNewIP = GetIP(out bool IPaddressOK);
+                    if (currentIP != mbNewIP && IPaddressOK)
                     {
                         currentIP = mbNewIP;
-                        Console.WriteLine($"Your IP is {currentIP}, {DateTime.Now}");
-                        SendMessage(mailUserName, mailPassword, currentIP);
-
+                        Console.WriteLine($"{DateTime.Now} your IP is {currentIP}");
+                        SendMessage(mailUserName, mailPassword, currentIP, out bool sendingOK);
+                        if (!sendingOK)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"{DateTime.Now} error sending e-mail. Check username, password and connection");
+                            Console.ResetColor();
+                        }
                     }
                     Thread.Sleep(60000);
                 }

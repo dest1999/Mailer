@@ -6,28 +6,45 @@
         xmlns:local="clr-namespace:Mailer"
         mc:Ignorable="d"
         Title="Mailer" Height="450" Width="700">
-    <Canvas >
-        <Grid Canvas.Left="10" Canvas.Top="10" >
-
-            <TextBox x:Name="tbSenderName" Text="serv_all@mail.ru" Margin="160,30,0,0" Width="110" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top"/>
-            <TextBox x:Name="tbRecipientName" Text="serv_all@bk.ru" Margin="160,113,0,0" Width="110" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top"/>
-            <PasswordBox x:Name="passwordBox" Margin="160,73,0,0" Width="110" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" />
-            <Button x:Name="btnSend" Content="Отправить" Click="btnSend_Click" Margin="377,92,0,0" HorizontalAlignment="Left" Width="121" Height="35" VerticalAlignment="Top"/>
-            <Label x:Name="lblNameFrom" Content="Логин отправителя" Margin="20,24,0,0" HorizontalAlignment="Left" Width="123" Height="26" VerticalAlignment="Top"/>
-            <Label x:Name="lblPassFrom" Content="Пароль отправителя" Margin="20,68,0,0" HorizontalAlignment="Left" Width="123" Height="27" VerticalAlignment="Top"/>
-            <Label x:Name="lblNameTo" Content="Логин получателя" Margin="20,110,0,0" HorizontalAlignment="Left" Width="109" Height="27" VerticalAlignment="Top"/>
-            <CheckBox x:Name="chbUseSSL" Content="Использовать SSL?" Margin="377,30,0,0" HorizontalAlignment="Left" Width="128" Height="20" VerticalAlignment="Top"/>
-
-        </Grid>
-        <Grid Height="242" Width="505" Canvas.Left="10" Canvas.Top="152">
-            <Label x:Name="lblSubject" Content="Тема письма" Margin="10,10,0,0" HorizontalAlignment="Left" Width="80" Height="27" VerticalAlignment="Top"/>
-            <TextBox x:Name="tbSubject" Text="Тема" Margin="95,14,10,206"/>
-            <TextBox x:Name="tbMessage" Text="text" TextWrapping="Wrap" Margin="10,41,10,10"/>
-        </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Выйти"/>
+            </MenuItem>
+            <MenuItem Header="О программе..."></MenuItem>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <DockPanel.Dock="ri" 
+                <ResizeGrip/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock Text="Ready to go"/>
+            </StatusBarItem>
 
 
+        </StatusBar>
+        <!--<TabControl></TabControl>-->
+        <Canvas >
+            <Grid Canvas.Left="10" Canvas.Top="10" >
 
-    </Canvas>
+                <TextBox x:Name="tbSenderName" Text="serv_all@mail.ru" Margin="160,30,0,0" Width="110" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top"/>
+                <TextBox x:Name="tbRecipientName" Text="serv_all@bk.ru" Margin="160,113,0,0" Width="110" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top"/>
+                <PasswordBox x:Name="passwordBox" Margin="160,73,0,0" Width="110" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" />
+                <Button x:Name="btnSend" Content="Отправить" Click="btnSend_Click" Margin="377,92,0,0" HorizontalAlignment="Left" Width="121" Height="35" VerticalAlignment="Top"/>
+                <Label x:Name="lblNameFrom" Content="Логин отправителя" Margin="20,24,0,0" HorizontalAlignment="Left" Width="123" Height="26" VerticalAlignment="Top"/>
+                <Label x:Name="lblPassFrom" Content="Пароль отправителя" Margin="20,68,0,0" HorizontalAlignment="Left" Width="123" Height="27" VerticalAlignment="Top"/>
+                <Label x:Name="lblNameTo" Content="Логин получателя" Margin="20,110,0,0" HorizontalAlignment="Left" Width="109" Height="27" VerticalAlignment="Top"/>
+                <CheckBox x:Name="chbUseSSL" Content="Использовать SSL?" Margin="377,30,0,0" HorizontalAlignment="Left" Width="128" Height="20" VerticalAlignment="Top"/>
+                
+            </Grid>
+            <Grid Height="242" Width="505" Canvas.Left="10" Canvas.Top="152">
+                <Label x:Name="lblSubject" Content="Тема письма" Margin="10,10,0,0" HorizontalAlignment="Left" Width="80" Height="27" VerticalAlignment="Top"/>
+                <TextBox x:Name="tbSubject" Text="Тема" Margin="95,14,10,206"/>
+                <TextBox x:Name="tbMessage" Text="text" TextWrapping="Wrap" Margin="10,41,10,10"/>
+            </Grid>
+        </Canvas>
+    </DockPanel>
 
 
 
