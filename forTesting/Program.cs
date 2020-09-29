@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using System.IO;
 namespace forTesting
-{
+{//TODO сохранить адрес для избежания повторной отправки на почту
     class Program
     {
         static string PingTrace(string toHost, int ttl) //это не покажет внешний адрес роутера((( Нужен внешнний сервер. Либо использовать Dns.GetHostEntry(Dns.GetHostName ())
