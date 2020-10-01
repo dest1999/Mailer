@@ -27,7 +27,7 @@ namespace forTesting
                 {
                     reqstring = reader.ReadToEnd();
                 }
-                string[] a = reqstring.Split(':');
+                string[] a = reqstring.Split(':');//TODO попробовать использовать regex при вычленении IP-адреса
                 string a2 = a[1].Substring(1);
                 a = a2.Split('<');
                 IPaddressOK = true;
@@ -44,7 +44,7 @@ namespace forTesting
         }
 
         static void SendMessage(string mailUserName, string mailPassword, string body, out bool sendingOK)
-        {
+        {//TODO ?вместо метода ввести класс, передавать имя-пароль в конструкторе?
             var sender = new MailAddress(mailUserName);
             var recipient = new MailAddress(mailUserName);
 
@@ -73,7 +73,7 @@ namespace forTesting
         }
 
         static void Main(string[] args)//args: mailUserName, mailPassword
-        {
+        {//TODO пароль вводим в диалоге, а не в параметрах запуска. Это даст возможность лучше скрыть (допустим через readkey)
             if (args.Length != 2)
             {
                 Console.WriteLine("The arguments are: mailUserName, mailPassword");
