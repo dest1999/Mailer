@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using System.IO;
 namespace forTesting
-{
+{//TODO сохранить адрес для избежания повторной отправки на почту
     class Program
     {
         static string PingTrace(string toHost, int ttl) //это не покажет внешний адрес роутера((( Нужен внешнний сервер. Либо использовать Dns.GetHostEntry(Dns.GetHostName ())
@@ -16,23 +16,35 @@ namespace forTesting
             return pingReply.Address.ToString();
         }
 
-        static string GetIP()
+        static string GetIP(out bool IPaddressOK)
         {
-            var req = WebRequest.Create("http://checkip.dyndns.org");
-            string reqstring;
-
-            using (var reader = new StreamReader(req.GetResponse().GetResponseStream()))
+            try
             {
-                reqstring = reader.ReadToEnd();
+                var req = WebRequest.Create("http://checkip.dyndns.org");
+                string reqstring;
+
+                using (var reader = new StreamReader(req.GetResponse().GetResponseStream()))
+                {
+                    reqstring = reader.ReadToEnd();
+                }
+                string[] a = reqstring.Split(':');//TODO попробовать использовать regex при вычленении IP-адреса
+                string a2 = a[1].Substring(1);
+                a = a2.Split('<');
+                IPaddressOK = true;
+                return a[0].ToString();
+
             }
-            string[] a = reqstring.Split(':');
-            string a2 = a[1].Substring(1);
-            a = a2.Split('<');
-            return a[0].ToString();
+            catch (Exception)
+            {
+                IPaddressOK = false;
+                return "";
+            }
+
+
         }
 
-        static void SendMessage(string mailUserName, string mailPassword, string body)
-        {
+        static void SendMessage(string mailUserName, string mailPassword, string body, out bool sendingOK)
+        {//TODO ?вместо метода ввести класс, передавать имя-пароль в конструкторе?
             var sender = new MailAddress(mailUserName);
             var recipient = new MailAddress(mailUserName);
 
@@ -46,31 +58,47 @@ namespace forTesting
             {
                 client.Credentials = new NetworkCredential(mailUserName, mailPassword);
                 client.EnableSsl = true;
-                client.Send(message);
+
+                try
+                {
+                    client.Send(message);
+                    sendingOK = true;
+                }
+                catch (Exception)
+                {
+                    sendingOK = false;
+                }
+
             };
         }
 
         static void Main(string[] args)//args: mailUserName, mailPassword
-        {
+        {//TODO пароль вводим в диалоге, а не в параметрах запуска. Это даст возможность лучше скрыть (допустим через readkey)
             if (args.Length != 2)
             {
                 Console.WriteLine("The arguments are: mailUserName, mailPassword");
             }
             else
             {
+                Console.Clear();
                 string mailUserName = args[0],
                     mailPassword = args[1],
                     currentIP = "",
                     mbNewIP;
                 while (true)
                 {
-                    mbNewIP = GetIP();
-                    if (currentIP != mbNewIP)
+                    mbNewIP = GetIP(out bool IPaddressOK);
+                    if (currentIP != mbNewIP && IPaddressOK)
                     {
                         currentIP = mbNewIP;
-                        Console.WriteLine($"Your IP is {currentIP}, {DateTime.Now}");
-                        SendMessage(mailUserName, mailPassword, currentIP);
-
+                        Console.WriteLine($"{DateTime.Now} your IP is {currentIP}");
+                        SendMessage(mailUserName, mailPassword, currentIP, out bool sendingOK);
+                        if (!sendingOK)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"{DateTime.Now} error sending e-mail. Check username, password and connection");
+                            Console.ResetColor();
+                        }
                     }
                     Thread.Sleep(60000);
                 }
