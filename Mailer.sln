@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "forTesting", "forTesting\fo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7BA91F26-F8B6-47ED-96F3-6F5B77111AD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mailer.lib", "Mailer.lib\Mailer.lib.csproj", "{9933F65A-FF95-42B7-A892-505CF52C2B1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mailer.lib", "Mailer.lib\Mailer.lib.csproj", "{9933F65A-FF95-42B7-A892-505CF52C2B1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testWPF", "testWPF\testWPF.csproj", "{84BC93F4-A322-427A-A7FA-A275C6A87C9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{9933F65A-FF95-42B7-A892-505CF52C2B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9933F65A-FF95-42B7-A892-505CF52C2B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9933F65A-FF95-42B7-A892-505CF52C2B1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84BC93F4-A322-427A-A7FA-A275C6A87C9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84BC93F4-A322-427A-A7FA-A275C6A87C9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84BC93F4-A322-427A-A7FA-A275C6A87C9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84BC93F4-A322-427A-A7FA-A275C6A87C9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
