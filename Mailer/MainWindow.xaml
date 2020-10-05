@@ -9,7 +9,9 @@
         xmlns:data="clr-namespace:Mailer.Data"
         xmlns:m="clr-namespace:Mailer.Models"
         mc:Ignorable="d"
-        Title="Mailer" Height="450" Width="700">
+        DataContext="{Binding mainWindowsModel, Source={StaticResource Locator}}"
+        Title="{Binding SyncText}" Height="450" Width="700"
+        Topmost="True">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
@@ -37,7 +39,7 @@
                     <ToolBarTray DockPanel.Dock="Top">
                         <ToolBar Header="Сервера">
                             <ComboBox MinWidth="100" Width="200" SelectedIndex="0" Margin="26,0,0,0"
-                                      ItemsSource="{x:Static data:TestData.Servers}"
+                                      ItemsSource="{Binding Servers}"
                                       DisplayMemberPath="Address" >
                                 
                             </ComboBox>
