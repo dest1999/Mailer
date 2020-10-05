@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using System.Text;
 using testWPF.ViewModel;
 
-namespace testWPF.ViewModels
+namespace testWPF.ViewModel
 {
-    public class MainWindowsViewModel : BaseViewModel
+    class MainWindowsViewModel : BaseViewModel
     {
-        private string _syncText;
+        private string _syncText = "123";
         public string SyncText
         {
             get => _syncText;
             set
             {
-                _syncText = value;
-                OnPropertyChanged(nameof(SyncText));
+                if (_syncText == value) return;
+                else
+                {
+                    _syncText = value;
+                    OnPropertyChanged(nameof(SyncText));
+                }
             }
         }
 
