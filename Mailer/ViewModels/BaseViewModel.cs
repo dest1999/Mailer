@@ -4,7 +4,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace testWPF.ViewModel
+namespace Mailer.ViewModel
 {
     abstract class BaseViewModel : INotifyPropertyChanged
     {

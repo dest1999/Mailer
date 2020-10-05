@@ -7,13 +7,15 @@
         xmlns:vm="clr-namespace:testWPF.ViewModel"
         mc:Ignorable="d"
         Title="{Binding SyncText}"
-        Height="450" Width="800">
+        Height="450" Width="800"
+        Topmost="True"
+        >
     <Window.DataContext>
         <vm:MainWindowsViewModel/>
     </Window.DataContext>
     <Grid>
         <TextBox Text="{Binding SyncText, UpdateSourceTrigger=PropertyChanged}" Width="150" Height="20" Margin="10" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-        <!--<TextBlock Text="{Binding Path=SyncText, UpdateSourceTrigger=PropertyChanged}" Width="150" Height="69" Margin="10,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="EAN-13" />-->
+        <TextBlock Text="{Binding Path=SyncText, UpdateSourceTrigger=PropertyChanged}" Width="150" Height="69" Margin="10,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="EAN-13" />
 
     </Grid>
 </Window>

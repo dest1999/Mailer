@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using testWPF.ViewModel;
+using Mailer.ViewModel;
 
-namespace testWPF.ViewModel
+namespace Mailer.ViewModel
 {
     class MainWindowsViewModel : BaseViewModel
     {
